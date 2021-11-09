@@ -10,8 +10,10 @@ for(i in 1:length(data_files)) { #for loop to convert csv to data frames
   
   substringdata = substr(data_files[i], 1, nchar(data_files[i])-4)
   
+  substringdata = gsub("-", "", substringdata)
+  
+  substringdata = gsub("_", "", substringdata)
+  
   assign(substringdata, readcsvfile)
   
 }
-
-
