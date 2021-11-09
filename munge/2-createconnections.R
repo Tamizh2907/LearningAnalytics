@@ -76,3 +76,25 @@ teammembers = teammembers[order(teammembers$id),]
 
 videostats = videostats[order(videostats$step_position),]
 
+#drop NA
+
+questionresponse = questionresponse[!(questionresponse$learner_id == ""),]
+
+#merge data frames
+
+merge1 = unique(merge(enrolment, stepactivity, by.x = "learner_id", by.y = "learner_id", all.x = TRUE))
+
+merge2 = unique(merge(enrolment, teammembers, by.x = "learner_id", by.y = "id"))
+
+merge3 = unique(merge(merge1, questionresponse, by.x = c("learner_id", "week_number", "step_number"),
+                      
+                by.y = c("learner_id", "week_number", "step_number"), all.x = TRUE))
+
+merge4 = unique(merge(merge3, archetype, by.x = "learner_id", by.y = "learner_id", all.x = TRUE))
+
+merge5 = unique(merge(merge4, weeklysurvey, by.x = "id", by.y = "id", all.x = TRUE))
+
+finalmerge = unique(merge(merge5, leavingsurvey, by.x = "learner_id", by.y = "learner_id", all.x = TRUE))
+
+
+
