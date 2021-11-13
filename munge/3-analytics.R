@@ -36,34 +36,118 @@ ggplot(enrolment, aes(employment_status)) + geom_bar(stat="count") +
 
 #Analysis by week number
 
-ggplot(finalmerge, aes(week_number.x)) + geom_bar(stat="count") + 
+ggplot(stepactivity, aes(week_number)) + geom_bar(stat="count") + 
   
   geom_text(stat='count', aes(label=..count..), vjust=-1) + ggtitle("Learners by week number") + theme_minimal()
 
 #Analysis by step number
 
-finalmerge %>%
+stepactivity %>%
   
-  filter(week_number.x == "1") %>%
-  
-  ggplot(aes(step_number)) + geom_bar(stat="count") + 
-  
-  geom_text(stat='count', aes(label=..count..), vjust=-1) + ggtitle("Learners by step number") + theme_minimal()
-
-
-finalmerge %>%
-  
-  filter(week_number.x == "2") %>%
+  filter(week_number == "1") %>%
   
   ggplot(aes(step_number)) + geom_bar(stat="count") + 
   
-  geom_text(stat='count', aes(label=..count..), vjust=-1) + ggtitle("Learners by step number") + theme_minimal()
+  geom_text(stat='count', aes(label=..count..), vjust=-1) + ggtitle("Learners by step number - 1") + theme_minimal()
+
+
+stepactivity %>%
+  
+  filter(week_number == "2") %>%
+  
+  ggplot(aes(step_number)) + geom_bar(stat="count") + 
+  
+  geom_text(stat='count', aes(label=..count..), vjust=-1) + ggtitle("Learners by step number - 2") + theme_minimal()
+
+
+stepactivity %>%
+  
+  filter(week_number == "3") %>%
+  
+  ggplot(aes(step_number)) + geom_bar(stat="count") + 
+  
+  geom_text(stat='count', aes(label=..count..), vjust=-1) + ggtitle("Learners by step number - 3") + theme_minimal()
+
+
+#Analysis by question response
+
+questionresponse %>%
+  
+  filter(quiz_question != "") %>% unique(.) %>%
+
+  ggplot(aes(correct)) + geom_bar(stat="count") +
+  
+  geom_text(stat='count', aes(label=..count..), vjust=-1) + ggtitle("Learners by responses") + theme_minimal()
+
+questionresponse %>%
+  
+  filter(quiz_question != "") %>% unique(.) %>%
+  
+  ggplot(aes(fill = correct, x = quiz_question)) + geom_bar(position = "stack", stat="count") +
+  
+  geom_text(stat='count', aes(label=..count..), vjust=-1) + ggtitle("Learners for each question by responses") + theme_minimal()
+
+
+
+#Analysis by weekly response
+
+boxplot(week_number~experience_rating, data=weeklysurvey, main="Experience rating by week", 
+          
+        xlab="Week number", ylab="Experience rating")
+
+
+#Analysis by archetypes
+
+archetype %>%
+  
+  unique(.) %>%
+  
+  ggplot(aes(archetype)) + geom_bar(stat="count") +
+  
+  geom_text(stat='count', aes(label=..count..), vjust=-1) + ggtitle("Learners by archetypes") + theme_minimal()
 
 
 finalmerge %>%
   
-  filter(week_number.x == "3") %>%
+  filter(quiz_question != "NA") %>% filter(archetype != "NA") %>% unique(.) %>%
   
-  ggplot(aes(step_number)) + geom_bar(stat="count") + 
+  ggplot(aes(fill = correct, x = archetype)) + geom_bar(position = "stack", stat="count") +
   
-  geom_text(stat='count', aes(label=..count..), vjust=-1) + ggtitle("Learners by step number") + theme_minimal()
+  geom_text(stat='count', aes(label=..count..), vjust=-1) + ggtitle("Learners for each question by responses") + theme_minimal()
+
+
+#Analysis by video stats
+
+videostats %>%
+  
+  unique(.) %>%
+  
+  ggplot(aes(step_position, total_views)) + geom_bar(stat="identity") +
+  
+  ggtitle("Learners by archetypes") + theme_minimal()
+
+
+#Analysis by leaving survey
+
+leavingsurvey %>%
+  
+  filter(last_completed_step != "NA") %>%
+  
+  ggplot(aes(last_completed_step)) + geom_bar(stat="count") +
+  
+  geom_text(stat='count', aes(label=..count..), vjust=-1) + 
+  
+  ggtitle("Leaving response by step number") + theme_minimal()
+
+
+#Analysis by team members
+
+teammembers %>%
+  
+  ggplot(aes(fill = user_role, team_role)) + geom_bar(position = "stack", stat="count") +
+  
+  geom_text(stat='count', aes(label=..count..), vjust=-1) + 
+  
+  ggtitle("Team members by enrolment role") + theme_minimal()
+
+
