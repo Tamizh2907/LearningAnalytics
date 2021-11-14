@@ -120,7 +120,7 @@ finalmerge %>%
 
 videostats %>%
   
-  unique(.) %>%
+  unique(.) %>% group_by(step_position) %>%
   
   ggplot(aes(step_position, total_views)) + geom_bar(stat="identity") +
   
@@ -149,5 +149,60 @@ teammembers %>%
   geom_text(stat='count', aes(label=..count..), vjust=-1) + 
   
   ggtitle("Team members by enrolment role") + theme_minimal()
+
+
+
+#Analysis by each run
+
+enrolcompile %>%
+  
+  ggplot(aes(x = run, y = count)) + geom_line() + geom_point() +
+  
+  geom_label(aes(label = count)) + ggtitle("Number of enrolments in each run") + theme_minimal()
+  
+  
+
+stepruncompile %>%
+  
+  ggplot(aes(x = run, y = count, group = week, color = as.factor(week))) + geom_line() + geom_point() +
+  
+  scale_color_manual(values=c('#FF0000','#0000FF', '#097969')) + geom_label(aes(label = count)) + labs(color = "week") +
+  
+  ggtitle("Number of visitors by week in each run") + theme_minimal()
+  
+
+quizruntruecompile %>%
+  
+  ggplot(aes(x = run, y = count, group = week, color = as.factor(week))) + geom_line() + geom_point() +
+  
+  scale_color_manual(values=c('#FF0000','#0000FF', '#097969')) + geom_label(aes(label = count)) + labs(color = "week") +
+  
+  ggtitle("Number of correct responses to quiz by week in each run") + theme_minimal()
+
+quizrunfalsecompile %>%
+  
+  ggplot(aes(x = run, y = count, group = week, color = as.factor(week))) + geom_line() + geom_point() +
+  
+  scale_color_manual(values=c('#FF0000','#0000FF', '#097969')) + geom_label(aes(label = count)) + labs(color = "week") +
+  
+  ggtitle("Number of wrong responses to quiz by week in each run") + theme_minimal()
+
+
+weeklycompile %>%
+  
+  ggplot(aes(x = rating, y = count, group = week, color = as.factor(week))) + geom_line() + geom_point() +
+  
+  scale_color_manual(values=c('#FF0000','#0000FF', '#097969')) + geom_label(aes(label = count)) + labs(color = "week") +
+  
+  ggtitle("Number of ratings by week in each run") + theme_minimal()
+
+  
+
+
+
+
+
+
+
 
 
