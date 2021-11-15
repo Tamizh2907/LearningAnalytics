@@ -124,7 +124,7 @@ videostats %>%
   
   ggplot(aes(step_position, total_views)) + geom_bar(stat="identity") +
   
-  ggtitle("Learners by archetypes") + theme_minimal()
+  ggtitle("Video watched by step position") + theme_minimal()
 
 
 #Analysis by leaving survey
@@ -196,7 +196,144 @@ weeklycompile %>%
   
   ggtitle("Number of ratings by week in each run") + theme_minimal()
 
+
+colorspalette = rainbow(13, s=0.6, v=0.9)
+
+videostats %>%
   
+  ggplot(aes(x = run_number, y = total_views, group = step_position, color = as.factor(step_position))) + geom_line() + geom_point() +
+  
+  scale_color_manual(values=colorspalette) + geom_label(aes(label = total_views)) + labs(color = "step_position") +
+  
+  ggtitle("Total views by step position in each run") + theme_minimal()
+
+
+
+videostatsaggregate %>%
+  
+  ggplot(aes(x = step_position, y = viewed_fifty_percent)) + geom_line() + geom_point() +
+  
+  geom_label(aes(label = viewed_fifty_percent)) +
+  
+  ggtitle("Average fifty percent view by step position") + theme_minimal()
+
+
+videostatsaggregate %>%
+  
+  ggplot(aes(x = step_position, y = viewed_onehundred_percent)) + geom_line() + geom_point() +
+  
+  geom_label(aes(label = viewed_onehundred_percent)) +
+  
+  ggtitle("Average hundred percent view by step position") + theme_minimal()
+
+
+videostatsaggregaterun %>%
+  
+  ggplot(aes(x = run_number, y = viewed_fifty_percent)) + geom_line() + geom_point() +
+  
+  geom_label(aes(label = viewed_fifty_percent)) +
+  
+  ggtitle("Average fifty percent view by run") + theme_minimal()
+
+
+videostatsaggregaterun %>%
+  
+  ggplot(aes(x = run_number, y = viewed_onehundred_percent)) + geom_line() + geom_point() +
+  
+  geom_label(aes(label = viewed_onehundred_percent)) +
+  
+  ggtitle("Average hundred percent view by run") + theme_minimal()
+
+
+videostatsaggregaterun %>%
+  
+  ggplot(aes(x = run_number, y = viewed_onehundred_percent)) + geom_line() + geom_point() +
+  
+  geom_label(aes(label = viewed_onehundred_percent)) +
+  
+  ggtitle("Average hundred percent view by run") + theme_minimal()
+
+
+videostatsaggregaterun %>%
+  
+  ggplot(aes(x = run_number, y = europe_views_percentage)) + geom_line() + geom_point() +
+  
+  geom_label(aes(label = europe_views_percentage)) +
+  
+  ggtitle("Europe percent view by run") + theme_minimal()
+
+
+videostatsaggregaterun %>%
+  
+  ggplot(aes(x = run_number, y = oceania_views_percentage)) + geom_line() + geom_point() +
+  
+  geom_label(aes(label = oceania_views_percentage)) +
+  
+  ggtitle("Oceania percent view by run") + theme_minimal()
+
+
+videostatsaggregaterun %>%
+  
+  ggplot(aes(x = run_number, y = asia_views_percentage)) + geom_line() + geom_point() +
+  
+  geom_label(aes(label = asia_views_percentage)) +
+  
+  ggtitle("Asia percent view by run") + theme_minimal()  
+
+
+videostatsaggregaterun %>%
+  
+  ggplot(aes(x = run_number, y = north_america_views_percentage)) + geom_line() + geom_point() +
+  
+  geom_label(aes(label = north_america_views_percentage)) +
+  
+  ggtitle("North America percent view by run") + theme_minimal()
+
+
+videostatsaggregaterun %>%
+  
+  ggplot(aes(x = run_number, y = south_america_views_percentage)) + geom_line() + geom_point() +
+  
+  geom_label(aes(label = south_america_views_percentage)) +
+  
+  ggtitle("South America percent view by run") + theme_minimal()  
+  
+
+videostatsaggregaterun %>%
+  
+  ggplot(aes(x = run_number, y = africa_views_percentage)) + geom_line() + geom_point() +
+  
+  geom_label(aes(label = africa_views_percentage)) +
+  
+  ggtitle("Africa percent view by run") + theme_minimal()
+
+
+videostatsaggregaterun %>%
+  
+  ggplot(aes(x = run_number, y = desktop_device_percentage)) + geom_line() + geom_point() +
+  
+  geom_label(aes(label = desktop_device_percentage)) +
+  
+  ggtitle("Desktop percent view by run") + theme_minimal()
+
+
+videostatsaggregaterun %>%
+  
+  ggplot(aes(x = run_number, y = mobile_device_percentage)) + geom_line() + geom_point() +
+  
+  geom_label(aes(label = mobile_device_percentage)) +
+  
+  ggtitle("Mobile percent view by run") + theme_minimal()
+
+
+videostatsaggregaterun %>%
+  
+  ggplot(aes(x = run_number, y = tablet_device_percentage)) + geom_line() + geom_point() +
+  
+  geom_label(aes(label = tablet_device_percentage)) +
+  
+  ggtitle("Tablet percent view by run") + theme_minimal()
+
 
 
 

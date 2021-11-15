@@ -291,3 +291,25 @@ weeklyresponse33 = c(week = 3, rating = 3, count = length(unique(weeklysurvey$id
 weeklycompile = data.frame(rbind(weeklyresponse11, weeklyresponse12, weeklyresponse13, weeklyresponse21, weeklyresponse22,
                                  
                                  weeklyresponse23, weeklyresponse31, weeklyresponse32, weeklyresponse33))
+
+vectorinvideostats = c()
+
+for (loop in 1:13){
+  
+  sequenceadd = seq(3,7,1)
+  
+  vectorinvideostats = append(vectorinvideostats, sequenceadd)
+  
+}
+
+videostats$run_number = vectorinvideostats
+
+videostatsaggregate = aggregate(videostats[, 3:28], list(videostats$step_position), mean)
+
+colnames(videostatsaggregate)[1] = "step_position"
+
+videostatsaggregaterun = aggregate(videostats[, 3:28], list(videostats$run_number), mean)
+
+colnames(videostatsaggregaterun)[1] = "run_number"
+
+
