@@ -1,3 +1,7 @@
+library('ProjectTemplate')
+
+load.project()
+
 #read all csv file to data frame
 
 data_files = list.files("data/", pattern = "^c")  # Identify file names

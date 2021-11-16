@@ -1,3 +1,7 @@
+library('ProjectTemplate')
+
+load.project()
+
 #various analysis of data
 
 library(tidyverse)
@@ -333,13 +337,5 @@ videostatsaggregaterun %>%
   geom_label(aes(label = tablet_device_percentage)) +
   
   ggtitle("Tablet percent view by run") + theme_minimal()
-
-
-
-
-
-
-
-
 
 
