@@ -1,0 +1,18 @@
+---
+title: "Learn Analytics"
+author: "Thamizhiniyan Pugazhenthi"
+date: "17/11/2021"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir= normalizePath('..'))
+```
+
+```{r ProjectTemplate, include = FALSE}
+library(ProjectTemplate)
+load.project()
+```
