@@ -1,36 +1,56 @@
 #various analysis of data
 
+library(tidyverse)
+
+library(reshape2)
+
+library(plyr)
+
+library(stringr)
+
+library(lubridate)
+
+library(ggplot2)
+
 # Basic bar plot
 
 #Analysis by age
 
 ggplot(enrolment, aes(age_range)) + geom_bar(stat="count") + 
   
-  geom_text(stat='count', aes(label=..count..), vjust=-1) + ggtitle("Count of enrolment by age") + theme_minimal()
+  geom_text(stat='count', aes(label=..count..), vjust=-0.3) + 
+  
+  ggtitle("Count of enrolment by age") + theme_minimal() 
 
 #Analysis by gender
 
 ggplot(enrolment, aes(gender)) + geom_bar(stat="count") + 
   
-  geom_text(stat='count', aes(label=..count..), vjust=-1) + ggtitle("Count of enrolment by gender") + theme_minimal()
+  geom_text(stat='count', aes(label=..count..), vjust=-0.3) + 
+  
+  ggtitle("Count of enrolment by gender") + theme_minimal()
 
 #Analysis by highest education
 
 ggplot(enrolment, aes(highest_education_level)) + geom_bar(stat="count") + 
   
-  geom_text(stat='count', aes(label=..count..), vjust=-1) + ggtitle("Count of enrolment by highest education level") + theme_minimal()
+  geom_text(stat='count', aes(label=..count..), vjust=-0.3) +
+  
+  ggtitle("Count of enrolment by highest education level") + theme_minimal()
 
 #Analysis by employment status
 
 ggplot(enrolment, aes(employment_status)) + geom_bar(stat="count") + 
   
-  geom_text(stat='count', aes(label=..count..), vjust=-1) + ggtitle("Count of enrolment by employment status") + theme_minimal()
+  geom_text(stat='count', aes(label=..count..), vjust=-0.3) + ggtitle("Count of enrolment by employment status") + 
+  
+  scale_x_discrete(labels = function(employment_status) str_wrap(employment_status, width = 10)) + theme_minimal()
 
 #Analysis by week number
 
 ggplot(stepactivity, aes(week_number)) + geom_bar(stat="count") + 
   
-  geom_text(stat='count', aes(label=..count..), vjust=-1) + ggtitle("Learners by week number") + theme_minimal()
+  geom_text(stat='count', aes(label=..count..), vjust=-0.3) + ggtitle("Learners by week number") + theme_minimal()
 
 #Analysis by step number
 
@@ -40,7 +60,7 @@ stepactivity %>%
   
   ggplot(aes(step_number)) + geom_bar(stat="count") + 
   
-  geom_text(stat='count', aes(label=..count..), vjust=-1) + ggtitle("Learners by step number - 1") + theme_minimal()
+  geom_text(stat='count', aes(label=..count..), position = position_stack(vjust=0.5)) + ggtitle("Learners by step number - 1") + theme_minimal()
 
 
 stepactivity %>%
@@ -49,7 +69,7 @@ stepactivity %>%
   
   ggplot(aes(step_number)) + geom_bar(stat="count") + 
   
-  geom_text(stat='count', aes(label=..count..), vjust=-1) + ggtitle("Learners by step number - 2") + theme_minimal()
+  geom_text(stat='count', aes(label=..count..), position = position_stack(vjust=0.5)) + ggtitle("Learners by step number - 2") + theme_minimal()
 
 
 stepactivity %>%
@@ -58,7 +78,7 @@ stepactivity %>%
   
   ggplot(aes(step_number)) + geom_bar(stat="count") + 
   
-  geom_text(stat='count', aes(label=..count..), vjust=-1) + ggtitle("Learners by step number - 3") + theme_minimal()
+  geom_text(stat='count', aes(label=..count..), position = position_stack(vjust=0.5)) + ggtitle("Learners by step number - 3") + theme_minimal()
 
 
 #Analysis by question response
@@ -69,7 +89,7 @@ questionresponse %>%
 
   ggplot(aes(correct)) + geom_bar(stat="count") +
   
-  geom_text(stat='count', aes(label=..count..), vjust=-1) + ggtitle("Learners by responses") + theme_minimal()
+  geom_text(stat='count', aes(label=..count..), vjust = -0.3) + ggtitle("Learners by responses") + theme_minimal()
 
 questionresponse %>%
   
@@ -77,7 +97,9 @@ questionresponse %>%
   
   ggplot(aes(fill = correct, x = quiz_question)) + geom_bar(position = "stack", stat="count") +
   
-  geom_text(stat='count', aes(label=..count..), vjust=-1) + ggtitle("Learners for each question by responses") + theme_minimal()
+  geom_text(stat='count', aes(label=..count..), position = position_stack(vjust=0.5)) + 
+  
+  ggtitle("Learners for each question by responses") + theme_minimal()
 
 
 
@@ -96,7 +118,7 @@ archetype %>%
   
   ggplot(aes(archetype)) + geom_bar(stat="count") +
   
-  geom_text(stat='count', aes(label=..count..), vjust=-1) + ggtitle("Learners by archetypes") + theme_minimal()
+  geom_text(stat='count', aes(label=..count..), position = position_stack(vjust=0.5)) + ggtitle("Learners by archetypes") + theme_minimal()
 
 
 finalmerge %>%
@@ -105,7 +127,7 @@ finalmerge %>%
   
   ggplot(aes(fill = correct, x = archetype)) + geom_bar(position = "stack", stat="count") +
   
-  geom_text(stat='count', aes(label=..count..), vjust=-1) + ggtitle("Learners for each question by responses") + theme_minimal()
+  geom_text(stat='count', aes(label=..count..), position = position_stack(vjust=0.5)) + ggtitle("Learners for each question by responses") + theme_minimal()
 
 
 #Analysis by video stats
@@ -127,7 +149,7 @@ leavingsurvey %>%
   
   ggplot(aes(last_completed_step)) + geom_bar(stat="count") +
   
-  geom_text(stat='count', aes(label=..count..), vjust=-1) + 
+  geom_text(stat='count', aes(label=..count..), vjust=-0.3) + 
   
   ggtitle("Leaving response by step number") + theme_minimal()
 
@@ -138,7 +160,7 @@ teammembers %>%
   
   ggplot(aes(fill = user_role, team_role)) + geom_bar(position = "stack", stat="count") +
   
-  geom_text(stat='count', aes(label=..count..), vjust=-1) + 
+  geom_text(stat='count', aes(label=..count..), position = position_stack(vjust=0.5)) + 
   
   ggtitle("Team members by enrolment role") + theme_minimal()
 
@@ -327,11 +349,33 @@ videostatsaggregaterun %>%
   ggtitle("Tablet percent view by run") + theme_minimal()
 
 
+#leaving survey
+
+leavingruncompile %>%
+  
+  ggplot(aes(x = run, y = count)) + geom_line() + geom_point() +
+  
+  geom_label(aes(label = count)) +
+  
+  ggtitle("Number of leaving learners by run") + theme_minimal()
 
 
+leavingsurvey %>%
+  
+  ggplot(aes(leaving_reason)) + geom_bar(stat="count") +
+  
+  geom_text(stat='count', aes(label=..count..), vjust=-0.3) + 
+  
+  scale_x_discrete(labels = function(leaving_reason) str_wrap(leaving_reason, width = 10)) + ggtitle("Number of leaving learners by reason") + theme_minimal()
 
 
+#comparison
 
-
-
+finalmergeuniquecompile %>%
+  
+  ggplot(aes(x = group, y = as.integer(count))) + geom_bar(stat="identity") + geom_text(stat = "identity", aes(label = count), vjust = -0.3) +
+  
+  scale_x_discrete(labels = function(group) str_wrap(group, width = 10)) +
+  
+  ggtitle("Bar plot to show learner's charecters") + theme_minimal()
 

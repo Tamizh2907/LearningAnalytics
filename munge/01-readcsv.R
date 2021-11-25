@@ -2,7 +2,7 @@
 
 data_files = list.files("data/", pattern = "^c")  # Identify file names
 
-data_files # Print file names
+#data_files # Print file names
 
 for(i in 1:length(data_files)) { #for loop to convert csv to data frames
   

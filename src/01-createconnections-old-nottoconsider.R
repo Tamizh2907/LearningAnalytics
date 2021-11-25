@@ -4,6 +4,13 @@ enrolment = rbind(cybersecurity1enrolments, cybersecurity2enrolments, cybersecur
                   
                   cybersecurity5enrolments, cybersecurity6enrolments, cybersecurity7enrolments)
 
+#archetype connection
+
+archetype = rbind(cybersecurity1archetypesurveyresponses, cybersecurity2archetypesurveyresponses, cybersecurity3archetypesurveyresponses,
+                  
+                  cybersecurity4archetypesurveyresponses, cybersecurity5archetypesurveyresponses, cybersecurity6archetypesurveyresponses,
+                  
+                  cybersecurity7archetypesurveyresponses)
 
 #leaving survey responses
 
@@ -21,17 +28,53 @@ questionresponse = rbind(cybersecurity1questionresponse, cybersecurity2questionr
                          
                          cybersecurity7questionresponse)
 
+#step activity
+
+stepactivity = rbind(cybersecurity1stepactivity, cybersecurity2stepactivity, cybersecurity3stepactivity,
+                     
+                     cybersecurity4stepactivity, cybersecurity5stepactivity, cybersecurity6stepactivity,
+                     
+                     cybersecurity7stepactivity)
+
+#weekly sentiment survey
+
+weeklysurvey = rbind(cybersecurity1weeklysentimentsurveyresponses, cybersecurity2weeklysentimentsurveyresponses,
+                     
+                     cybersecurity3weeklysentimentsurveyresponses, cybersecurity4weeklysentimentsurveyresponses,
+                     
+                     cybersecurity5weeklysentimentsurveyresponses, cybersecurity6weeklysentimentsurveyresponses,
+                     
+                     cybersecurity7weeklysentimentsurveyresponses)
+
+#team members
+
+teammembers = rbind(cybersecurity2teammembers, cybersecurity3teammembers, cybersecurity4teammembers, cybersecurity5teammembers,
+                    
+                    cybersecurity6teammembers, cybersecurity7teammembers)
+
+#video stats
+
+videostats = rbind(cybersecurity3videostats, cybersecurity4videostats, cybersecurity5videostats, cybersecurity6videostats,
+                   
+                   cybersecurity7videostats)
+
 #sort based on a column
 
 enrolment = enrolment[order(enrolment$learner_id),]
+
+archetype = archetype[order(archetype$learner_id),]
 
 leavingsurvey = leavingsurvey[order(leavingsurvey$learner_id),]
 
 questionresponse = questionresponse[order(questionresponse$learner_id),]
 
-#clean leaving survey data
+stepactivity = stepactivity[order(stepactivity$learner_id),]
 
-leavingsurvey$leaving_reason = iconv(leavingsurvey$leaving_reason, "latin1", "ASCII", sub="")
+weeklysurvey = weeklysurvey[order(weeklysurvey$id),]
+
+teammembers = teammembers[order(teammembers$id),]
+
+videostats = videostats[order(videostats$step_position),]
 
 #drop NA
 
@@ -39,25 +82,19 @@ questionresponse = questionresponse[!(questionresponse$learner_id == ""),]
 
 #merge data frames
 
-merge1 = unique(merge(enrolment, questionresponse, by.x = "learner_id", by.y = "learner_id", all.x = TRUE))
+merge1 = unique(merge(enrolment, stepactivity, by.x = "learner_id", by.y = "learner_id", all.x = TRUE))
 
-finalmerge = unique(merge(merge1, leavingsurvey, by.x = "learner_id", by.y = "learner_id", all.x = TRUE))
+merge2 = unique(merge(enrolment, teammembers, by.x = "learner_id", by.y = "id"))
 
-finalmerge = finalmerge[order(finalmerge$enrolled_at), ]
+merge3 = unique(merge(merge1, questionresponse, by.x = c("learner_id", "week_number", "step_number"),
+                      
+                by.y = c("learner_id", "week_number", "step_number"), all.x = TRUE))
 
-#extract unique values from question response
+merge4 = unique(merge(merge3, archetype, by.x = "learner_id", by.y = "learner_id", all.x = TRUE))
 
-questionresponseunique = questionresponse %>%
-  
-                          group_by(learner_id) %>%
-  
-                            filter(row_number() == 1)
+merge5 = unique(merge(merge4, weeklysurvey, by.x = "id", by.y = "id", all.x = TRUE))
 
-merge1unique = unique(merge(enrolment, questionresponseunique, by.x = "learner_id", by.y = "learner_id", all.x = TRUE))
-
-finalmergeunique = unique(merge(merge1unique, leavingsurvey, by.x = "learner_id", by.y = "learner_id", all.x = TRUE))
-
-finalmergeunique = finalmergeunique[order(finalmergeunique$enrolled_at), ]
+finalmerge = unique(merge(merge5, leavingsurvey, by.x = "learner_id", by.y = "learner_id", all.x = TRUE))
 
 
 #compare enrollment of each run
@@ -77,6 +114,60 @@ enrolrun6 = c(run = 6, count = length(unique(cybersecurity6enrolments$learner_id
 enrolrun7 = c(run = 7, count = length(unique(cybersecurity7enrolments$learner_id)))
 
 enrolcompile = data.frame(rbind(enrolrun1, enrolrun2, enrolrun3, enrolrun4, enrolrun5, enrolrun6, enrolrun7))
+
+
+#compare step activity of each run
+
+steprun11 = c(week = 1, run = 1, count = length(unique(cybersecurity1stepactivity$learner_id[cybersecurity1stepactivity$week_number == 1])))
+
+steprun12 = c(week = 1, run = 2, count = length(unique(cybersecurity2stepactivity$learner_id[cybersecurity2stepactivity$week_number == 1])))
+
+steprun13 = c(week = 1, run = 3, count = length(unique(cybersecurity3stepactivity$learner_id[cybersecurity3stepactivity$week_number == 1])))
+
+steprun14 = c(week = 1, run = 4, count = length(unique(cybersecurity4stepactivity$learner_id[cybersecurity4stepactivity$week_number == 1])))
+
+steprun15 = c(week = 1, run = 5, count = length(unique(cybersecurity5stepactivity$learner_id[cybersecurity5stepactivity$week_number == 1])))
+
+steprun16 = c(week = 1, run = 6, count = length(unique(cybersecurity6stepactivity$learner_id[cybersecurity6stepactivity$week_number == 1])))
+
+steprun17 = c(week = 1, run = 7, count = length(unique(cybersecurity1stepactivity$learner_id[cybersecurity7stepactivity$week_number == 1])))
+
+steprun21 = c(week = 2, run = 1, count = length(unique(cybersecurity1stepactivity$learner_id[cybersecurity1stepactivity$week_number == 2])))
+
+steprun22 = c(week = 2, run = 2, count = length(unique(cybersecurity2stepactivity$learner_id[cybersecurity2stepactivity$week_number == 2])))
+
+steprun23 = c(week = 2, run = 3, count = length(unique(cybersecurity3stepactivity$learner_id[cybersecurity3stepactivity$week_number == 2])))
+
+steprun24 = c(week = 2, run = 4, count = length(unique(cybersecurity4stepactivity$learner_id[cybersecurity4stepactivity$week_number == 2])))
+
+steprun25 = c(week = 2, run = 5, count = length(unique(cybersecurity5stepactivity$learner_id[cybersecurity5stepactivity$week_number == 2])))
+
+steprun26 = c(week = 2, run = 6, count = length(unique(cybersecurity6stepactivity$learner_id[cybersecurity6stepactivity$week_number == 2])))
+
+steprun27 = c(week = 2, run = 7, count = length(unique(cybersecurity1stepactivity$learner_id[cybersecurity7stepactivity$week_number == 2])))
+
+steprun31 = c(week = 3, run = 1, count = length(unique(cybersecurity1stepactivity$learner_id[cybersecurity1stepactivity$week_number == 3])))
+
+steprun32 = c(week = 3, run = 2, count = length(unique(cybersecurity2stepactivity$learner_id[cybersecurity2stepactivity$week_number == 3])))
+
+steprun33 = c(week = 3, run = 3, count = length(unique(cybersecurity3stepactivity$learner_id[cybersecurity3stepactivity$week_number == 3])))
+
+steprun34 = c(week = 3, run = 4, count = length(unique(cybersecurity4stepactivity$learner_id[cybersecurity4stepactivity$week_number == 3])))
+
+steprun35 = c(week = 3, run = 5, count = length(unique(cybersecurity5stepactivity$learner_id[cybersecurity5stepactivity$week_number == 3])))
+
+steprun36 = c(week = 3, run = 6, count = length(unique(cybersecurity6stepactivity$learner_id[cybersecurity6stepactivity$week_number == 3])))
+
+steprun37 = c(week = 3, run = 7, count = length(unique(cybersecurity1stepactivity$learner_id[cybersecurity7stepactivity$week_number == 3])))
+
+
+stepruncompile = data.frame(rbind(steprun11, steprun12, steprun13, steprun14, steprun15, steprun16, steprun17,
+                                  
+                                  steprun21, steprun22, steprun23, steprun24, steprun25, steprun26, steprun27,
+                                  
+                                  steprun31, steprun32, steprun33, steprun34, steprun35, steprun36, steprun37))
+
+
 
 #compare by quiz responses
 
@@ -177,45 +268,48 @@ quizrunfalsecompile = data.frame(rbind(quizrunfalse11, quizrunfalse12, quizrunfa
                                        quizrunfalse31, quizrunfalse32, quizrunfalse33, quizrunfalse34, quizrunfalse35, quizrunfalse36, quizrunfalse37))
 
 
-#compare leaving surveys
+#Compare weekly responses
 
-leavingrun1 = c(run = 1, count = length(unique(cybersecurity1leavingsurveyresponses$learner_id)))
+weeklyresponse11 = c(week = 1, rating = 1, count = length(unique(weeklysurvey$id[weeklysurvey$week_number == 1 & weeklysurvey$experience_rating == 1])))
 
-leavingrun2 = c(run = 2, count = length(unique(cybersecurity2leavingsurveyresponses$learner_id)))
+weeklyresponse12 = c(week = 1, rating = 2, count = length(unique(weeklysurvey$id[weeklysurvey$week_number == 1 & weeklysurvey$experience_rating == 2])))
 
-leavingrun3 = c(run = 3, count = length(unique(cybersecurity3leavingsurveyresponses$learner_id)))
+weeklyresponse13 = c(week = 1, rating = 3, count = length(unique(weeklysurvey$id[weeklysurvey$week_number == 1 & weeklysurvey$experience_rating == 3])))
 
-leavingrun4 = c(run = 4, count = length(unique(cybersecurity4leavingsurveyresponses$learner_id)))
+weeklyresponse21 = c(week = 2, rating = 1, count = length(unique(weeklysurvey$id[weeklysurvey$week_number == 2 & weeklysurvey$experience_rating == 1])))
 
-leavingrun5 = c(run = 5, count = length(unique(cybersecurity5leavingsurveyresponses$learner_id)))
+weeklyresponse22 = c(week = 2, rating = 2, count = length(unique(weeklysurvey$id[weeklysurvey$week_number == 2 & weeklysurvey$experience_rating == 2])))
 
-leavingrun6 = c(run = 6, count = length(unique(cybersecurity6leavingsurveyresponses$learner_id)))
+weeklyresponse23 = c(week = 2, rating = 3, count = length(unique(weeklysurvey$id[weeklysurvey$week_number == 2 & weeklysurvey$experience_rating == 3])))
 
-leavingrun7 = c(run = 7, count = length(unique(cybersecurity7leavingsurveyresponses$learner_id)))
+weeklyresponse31 = c(week = 3, rating = 1, count = length(unique(weeklysurvey$id[weeklysurvey$week_number == 3 & weeklysurvey$experience_rating == 1])))
 
-leavingruncompile = data.frame(rbind(leavingrun1, leavingrun2, leavingrun3, leavingrun4,
-                                     
-                                     leavingrun5, leavingrun6, leavingrun7))
+weeklyresponse32 = c(week = 3, rating = 2, count = length(unique(weeklysurvey$id[weeklysurvey$week_number == 3 & weeklysurvey$experience_rating == 2])))
+
+weeklyresponse33 = c(week = 3, rating = 3, count = length(unique(weeklysurvey$id[weeklysurvey$week_number == 3 & weeklysurvey$experience_rating == 3])))
+
+weeklycompile = data.frame(rbind(weeklyresponse11, weeklyresponse12, weeklyresponse13, weeklyresponse21, weeklyresponse22,
+                                 
+                                 weeklyresponse23, weeklyresponse31, weeklyresponse32, weeklyresponse33))
+
+vectorinvideostats = c()
+
+for (loop in 1:13){
+  
+  sequenceadd = seq(3,7,1)
+  
+  vectorinvideostats = append(vectorinvideostats, sequenceadd)
+  
+}
+
+videostats$run_number = vectorinvideostats
+
+videostatsaggregate = aggregate(videostats[, 3:28], list(videostats$step_position), mean)
+
+colnames(videostatsaggregate)[1] = "step_position"
+
+videostatsaggregaterun = aggregate(videostats[, 3:28], list(videostats$run_number), mean)
+
+colnames(videostatsaggregaterun)[1] = "run_number"
 
 
-
-#working on final merge
-
-enrolledwithoutboth = c(group = "Did not attend the quiz and stayed in the course",
-                    
-                    count = length(finalmergeunique$learner_id[is.na(finalmergeunique$quiz_question) == TRUE & is.na(finalmergeunique$left_at) == TRUE]))
-
-enrolledwithoutleft = c(group = "Attempted the quiz and stayed in the course",
-                    
-                    count = length(finalmergeunique$learner_id[is.na(finalmergeunique$quiz_question) == FALSE & is.na(finalmergeunique$left_at) == TRUE]))
-
-enrolledwithoutquestion = c(group = "Did not attempt the quiz but left the course",
-                    
-                    count = length(finalmergeunique$learner_id[is.na(finalmergeunique$quiz_question) == TRUE & is.na(finalmergeunique$left_at) == FALSE]))
-
-enrolledwithboth = c(group = "Attempted the quiz but left the course",
-                        
-                        count = length(finalmergeunique$learner_id[is.na(finalmergeunique$quiz_question) == FALSE & is.na(finalmergeunique$left_at) == FALSE]))
-
-
-finalmergeuniquecompile = data.frame(rbind(enrolledwithoutboth, enrolledwithoutleft, enrolledwithoutquestion, enrolledwithboth))
