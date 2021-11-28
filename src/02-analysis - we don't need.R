@@ -118,16 +118,7 @@ archetype %>%
   
   ggplot(aes(archetype)) + geom_bar(stat="count") +
   
-  geom_text(stat='count', aes(label=..count..), position = position_stack(vjust=0.5)) + ggtitle("Learners by archetypes") + theme_minimal()
-
-
-finalmerge %>%
-  
-  filter(quiz_question != "NA") %>% filter(archetype != "NA") %>% unique(.) %>%
-  
-  ggplot(aes(fill = correct, x = archetype)) + geom_bar(position = "stack", stat="count") +
-  
-  geom_text(stat='count', aes(label=..count..), position = position_stack(vjust=0.5)) + ggtitle("Learners for each question by responses") + theme_minimal()
+  geom_text(stat='count', aes(label=..count..), vjust=-0.5) + ggtitle("Learners by archetypes") + theme_minimal()
 
 
 #Analysis by video stats
@@ -377,5 +368,52 @@ finalmergeuniquecompile %>%
   
   scale_x_discrete(labels = function(group) str_wrap(group, width = 10)) +
   
-  ggtitle("Bar plot to show learner's charecters") + theme_minimal()
+  ggtitle("Plot to show learner's charecters") + theme_minimal()
+
+
+tablefinalmergelearnerid %>%
+  
+  ggplot(aes(Freq)) + geom_bar(stat="count") +
+  
+  geom_text(stat='count', aes(label=..count..), vjust=-0.3) +
+  
+  ggtitle("Number of learners who enrolled multiple courses") + theme_minimal()
+
+
+leavingreasongroupbyeducation %>%
+  
+  filter(highest_education_level != "Unknown") %>%
+  
+  ggplot(aes(x = leaving_reason, y = n, group = highest_education_level, color = as.factor(highest_education_level))) + geom_line() + geom_point() +
+  
+  geom_label(aes(label = n)) + labs(color = "highest_education_level") + scale_x_discrete(labels = function(leaving_reason) str_wrap(leaving_reason, width = 10)) +
+  
+  ggtitle("Leaving reason by highest education level") + theme_minimal()
+
+
+leavingreasongroupbyemployment %>%
+  
+  filter(employment_status != "Unknown") %>%
+  
+  ggplot(aes(x = leaving_reason, y = n, group = employment_status, color = as.factor(employment_status))) + geom_line() + geom_point() +
+  
+  geom_label(aes(label = n)) + labs(color = "employment_status") + scale_x_discrete(labels = function(leaving_reason) str_wrap(leaving_reason, width = 10)) +
+  
+  ggtitle("Leaving reason by employment status") + theme_minimal()
+
+
+leavingreasongroupbygender %>%
+  
+  filter(gender != "Unknown") %>%
+  
+  ggplot(aes(x = leaving_reason, y = n, group = gender, color = as.factor(gender))) + geom_line() + geom_point() +
+  
+  geom_label(aes(label = n)) + labs(color = "gender") + scale_x_discrete(labels = function(leaving_reason) str_wrap(leaving_reason, width = 10)) +
+  
+  ggtitle("Leaving reason by gender") + theme_minimal()
+
+
+
+
+
 

@@ -4,14 +4,12 @@ enrolment = rbind(cybersecurity1enrolments, cybersecurity2enrolments, cybersecur
                   
                   cybersecurity5enrolments, cybersecurity6enrolments, cybersecurity7enrolments)
 
-
 #leaving survey responses
 
-leavingsurvey = rbind(cybersecurity1leavingsurveyresponses, cybersecurity2leavingsurveyresponses, cybersecurity3leavingsurveyresponses,
+leavingsurvey = rbind(cybersecurity3leavingsurveyresponses, cybersecurity4leavingsurveyresponses, cybersecurity5leavingsurveyresponses,
                       
-                      cybersecurity4leavingsurveyresponses, cybersecurity5leavingsurveyresponses, cybersecurity6leavingsurveyresponses,
+                      cybersecurity6leavingsurveyresponses, cybersecurity7leavingsurveyresponses)
                       
-                      cybersecurity7leavingsurveyresponses)
 
 #question response
 
@@ -20,6 +18,8 @@ questionresponse = rbind(cybersecurity1questionresponse, cybersecurity2questionr
                          cybersecurity4questionresponse, cybersecurity5questionresponse, cybersecurity6questionresponse,
                          
                          cybersecurity7questionresponse)
+
+
 
 #sort based on a column
 
@@ -37,27 +37,73 @@ leavingsurvey$leaving_reason = iconv(leavingsurvey$leaving_reason, "latin1", "AS
 
 questionresponse = questionresponse[!(questionresponse$learner_id == ""),]
 
-#merge data frames
+#run compile across enrollment, question response, leaving survey
 
-merge1 = unique(merge(enrolment, questionresponse, by.x = "learner_id", by.y = "learner_id", all.x = TRUE))
-
-finalmerge = unique(merge(merge1, leavingsurvey, by.x = "learner_id", by.y = "learner_id", all.x = TRUE))
-
-finalmerge = finalmerge[order(finalmerge$enrolled_at), ]
-
-#extract unique values from question response
-
-questionresponseunique = questionresponse %>%
+question3unique = cybersecurity3questionresponse %>% group_by(learner_id) %>% filter(row_number() == 1)
   
-                          group_by(learner_id) %>%
-  
-                            filter(row_number() == 1)
+leaving3unique = cybersecurity3leavingsurveyresponses %>% group_by(learner_id) %>% filter(row_number() == 1)
+                          
+merge1run3 = unique(merge(cybersecurity3enrolments, question3unique, by.x = "learner_id", by.y = "learner_id", all.x = TRUE))
 
-merge1unique = unique(merge(enrolment, questionresponseunique, by.x = "learner_id", by.y = "learner_id", all.x = TRUE))
+finalmergerun3 = unique(merge(merge1run3, leaving3unique, by.x = "learner_id", by.y = "learner_id", all.x = TRUE))
 
-finalmergeunique = unique(merge(merge1unique, leavingsurvey, by.x = "learner_id", by.y = "learner_id", all.x = TRUE))
+finalmergerun3 = finalmergerun3[order(finalmergerun3$enrolled_at), ]
 
-finalmergeunique = finalmergeunique[order(finalmergeunique$enrolled_at), ]
+
+question4unique = cybersecurity4questionresponse %>% group_by(learner_id) %>% filter(row_number() == 1)
+
+leaving4unique = cybersecurity4leavingsurveyresponses %>% group_by(learner_id) %>% filter(row_number() == 1)
+
+merge1run4 = unique(merge(cybersecurity4enrolments, question4unique, by.x = "learner_id", by.y = "learner_id", all.x = TRUE))
+
+finalmergerun4 = unique(merge(merge1run4, leaving4unique, by.x = "learner_id", by.y = "learner_id", all.x = TRUE))
+
+finalmergerun4 = finalmergerun4[order(finalmergerun4$enrolled_at), ]
+
+
+question5unique = cybersecurity5questionresponse %>% group_by(learner_id) %>% filter(row_number() == 1)
+
+leaving5unique = cybersecurity5leavingsurveyresponses %>% group_by(learner_id) %>% filter(row_number() == 1)
+
+merge1run5 = unique(merge(cybersecurity5enrolments, question5unique, by.x = "learner_id", by.y = "learner_id", all.x = TRUE))
+
+finalmergerun5 = unique(merge(merge1run5, leaving5unique, by.x = "learner_id", by.y = "learner_id", all.x = TRUE))
+
+finalmergerun5 = finalmergerun5[order(finalmergerun5$enrolled_at), ]
+
+
+question6unique = cybersecurity6questionresponse %>% group_by(learner_id) %>% filter(row_number() == 1)
+
+leaving6unique = cybersecurity6leavingsurveyresponses %>% group_by(learner_id) %>% filter(row_number() == 1)
+
+merge1run6 = unique(merge(cybersecurity6enrolments, question6unique, by.x = "learner_id", by.y = "learner_id", all.x = TRUE))
+
+finalmergerun6 = unique(merge(merge1run6, leaving6unique, by.x = "learner_id", by.y = "learner_id", all.x = TRUE))
+
+finalmergerun6 = finalmergerun6[order(finalmergerun6$enrolled_at), ]
+
+
+question7unique = cybersecurity7questionresponse %>% group_by(learner_id) %>% filter(row_number() == 1)
+
+leaving7unique = cybersecurity7leavingsurveyresponses %>% group_by(learner_id) %>% filter(row_number() == 1)
+
+merge1run7 = unique(merge(cybersecurity7enrolments, question7unique, by.x = "learner_id", by.y = "learner_id", all.x = TRUE))
+
+finalmergerun7 = unique(merge(merge1run7, leaving7unique, by.x = "learner_id", by.y = "learner_id", all.x = TRUE))
+
+finalmergerun7 = finalmergerun7[order(finalmergerun7$enrolled_at), ]
+
+
+
+runcompilethreetoseven = rbind(finalmergerun3, finalmergerun4, finalmergerun5, finalmergerun6, finalmergerun7)
+
+runcompilethreetoseven = runcompilethreetoseven[order(runcompilethreetoseven$learner_id),]
+
+runcompilethreetoseven$leaving_reason = iconv(runcompilethreetoseven$leaving_reason, "latin1", "ASCII", sub="")
+
+#to find count of learner_id and repetitions
+
+tablefinalmergelearnerid = as.data.frame(table(enrolment$learner_id))
 
 
 #compare enrollment of each run
@@ -77,6 +123,7 @@ enrolrun6 = c(run = 6, count = length(unique(cybersecurity6enrolments$learner_id
 enrolrun7 = c(run = 7, count = length(unique(cybersecurity7enrolments$learner_id)))
 
 enrolcompile = data.frame(rbind(enrolrun1, enrolrun2, enrolrun3, enrolrun4, enrolrun5, enrolrun6, enrolrun7))
+
 
 #compare by quiz responses
 
@@ -198,24 +245,63 @@ leavingruncompile = data.frame(rbind(leavingrun1, leavingrun2, leavingrun3, leav
                                      leavingrun5, leavingrun6, leavingrun7))
 
 
-
 #working on final merge
 
 enrolledwithoutboth = c(group = "Did not attend the quiz and stayed in the course",
-                    
-                    count = length(finalmergeunique$learner_id[is.na(finalmergeunique$quiz_question) == TRUE & is.na(finalmergeunique$left_at) == TRUE]))
+                        
+                        count = length(runcompilethreetoseven$learner_id[is.na(runcompilethreetoseven$quiz_question) == TRUE & is.na(runcompilethreetoseven$left_at) == TRUE]))
 
 enrolledwithoutleft = c(group = "Attempted the quiz and stayed in the course",
-                    
-                    count = length(finalmergeunique$learner_id[is.na(finalmergeunique$quiz_question) == FALSE & is.na(finalmergeunique$left_at) == TRUE]))
+                        
+                        count = length(runcompilethreetoseven$learner_id[is.na(runcompilethreetoseven$quiz_question) == FALSE & is.na(runcompilethreetoseven$left_at) == TRUE]))
 
 enrolledwithoutquestion = c(group = "Did not attempt the quiz but left the course",
-                    
-                    count = length(finalmergeunique$learner_id[is.na(finalmergeunique$quiz_question) == TRUE & is.na(finalmergeunique$left_at) == FALSE]))
+                            
+                            count = length(runcompilethreetoseven$learner_id[is.na(runcompilethreetoseven$quiz_question) == TRUE & is.na(runcompilethreetoseven$left_at) == FALSE]))
 
 enrolledwithboth = c(group = "Attempted the quiz but left the course",
-                        
-                        count = length(finalmergeunique$learner_id[is.na(finalmergeunique$quiz_question) == FALSE & is.na(finalmergeunique$left_at) == FALSE]))
+                     
+                     count = length(runcompilethreetoseven$learner_id[is.na(runcompilethreetoseven$quiz_question) == FALSE & is.na(runcompilethreetoseven$left_at) == FALSE]))
 
 
 finalmergeuniquecompile = data.frame(rbind(enrolledwithoutboth, enrolledwithoutleft, enrolledwithoutquestion, enrolledwithboth))
+
+
+
+leavingsteptop10 = data.frame(runcompilethreetoseven %>% 
+  
+  filter(is.na(last_completed_step_number) == FALSE) %>%
+  
+  group_by(last_completed_step) %>% tally())
+
+
+
+leavingreasongroupbyeducation = data.frame(runcompilethreetoseven %>% 
+  
+  filter(is.na(leaving_reason) == FALSE) %>%
+  
+  group_by(leaving_reason, highest_education_level) %>% tally())
+
+
+leavingreasongroupbyemployment = data.frame(runcompilethreetoseven %>% 
+                                             
+  filter(is.na(leaving_reason) == FALSE) %>%
+                                             
+  group_by(leaving_reason, employment_status) %>% tally())
+
+
+leavingreasongroupbygender = data.frame(runcompilethreetoseven %>% 
+                                       
+  filter(is.na(leaving_reason) == FALSE) %>%
+                                       
+  group_by(leaving_reason, gender) %>% tally())
+
+
+runcompilethreetosevenwithoutna = data.frame(runcompilethreetoseven %>%
+                               
+  filter(is.na(leaving_reason) == FALSE))
+
+
+differenceintime = data.frame(ceiling(difftime(runcompilethreetosevenwithoutna$left_at, runcompilethreetosevenwithoutna$enrolled_at, units = "weeks")))
+
+colnames(differenceintime)[1] = "weekinnumber"
