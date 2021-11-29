@@ -1,42 +1,59 @@
 #various analysis of data
 
+library(reshape2)
+
+library(plyr)
+
+library(tidyverse)
+
+library(stringr)
+
+library(lubridate)
+
+library(ggplot2)
+
 # Basic bar plot
 
 #Analysis by age
 
-ggplot(enrolment, aes(age_range)) + geom_bar(stat="count") + 
-  
-  geom_text(stat='count', aes(label=..count..), vjust=-0.3) + 
-  
-  ggtitle("Count of enrolment by age") + theme_minimal() 
+require(gridExtra)
 
 #Analysis by gender
 
-ggplot(enrolment, aes(gender)) + geom_bar(stat="count") + 
+plot1 = ggplot(enrolment, aes(age_range)) + geom_bar(stat="count") + 
   
-  geom_text(stat='count', aes(label=..count..), vjust=-0.3) + 
+        geom_text(stat='count', aes(label=..count..), vjust=-0.3) + 
   
-  ggtitle("Count of enrolment by gender") + theme_minimal()
+        ggtitle("Count of enrolment by age") + theme_minimal()
 
 #Analysis by highest education
 
-ggplot(enrolment, aes(highest_education_level)) + geom_bar(stat="count") + 
+plot2 = ggplot(enrolment, aes(gender)) + geom_bar(stat="count") + 
   
-  geom_text(stat='count', aes(label=..count..), vjust=-0.3) +
+        geom_text(stat='count', aes(label=..count..), vjust=-0.3) + 
   
-  ggtitle("Count of enrolment by highest education level") + theme_minimal()
+        ggtitle("Count of enrolment by gender") + theme_minimal()
 
 #Analysis by employment status
 
-ggplot(enrolment, aes(employment_status)) + geom_bar(stat="count") + 
+plot3 = ggplot(enrolment, aes(highest_education_level)) + geom_bar(stat="count") + 
   
-  geom_text(stat='count', aes(label=..count..), vjust=-0.3) + ggtitle("Count of enrolment by employment status") + 
+        geom_text(stat='count', aes(label=..count..), vjust=-0.3) +
   
-  scale_x_discrete(labels = function(employment_status) str_wrap(employment_status, width = 10)) + theme_minimal()
-
+        ggtitle("Count of enrolment by highest education level") + theme_minimal()
 
 #Analysis by question response
 
+plot4 = ggplot(enrolment, aes(employment_status)) + geom_bar(stat="count") + 
+  
+        geom_text(stat='count', aes(label=..count..), vjust=-0.3) + ggtitle("Count of enrolment by employment status") + 
+  
+        scale_x_discrete(labels = function(employment_status) str_wrap(employment_status, width = 10)) + theme_minimal()
+
+
+grid.arrange(plot1, plot2, plot3, plot4, nrow =2, ncol=2)
+
+ 
 questionresponse %>%
   
   filter(quiz_question != "") %>% unique(.) %>%
@@ -181,7 +198,7 @@ differenceintime %>%
   
   geom_text(stat='count', aes(label=..count..), vjust=-0.3) + scale_x_continuous(expand = c(0,0)) +
   
-  ggtitle("Number of learners against number of weeks they enrolled in") + theme_minimal()
+  ggtitle("Number of learners against number of weeks they stayed in the course") + theme_minimal()
 
 
 

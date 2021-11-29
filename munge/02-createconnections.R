@@ -247,7 +247,7 @@ leavingruncompile = data.frame(rbind(leavingrun1, leavingrun2, leavingrun3, leav
 
 #working on final merge
 
-enrolledwithoutboth = c(group = "Did not attend the quiz and stayed in the course",
+enrolledwithoutboth = c(group = "Did not attempt the quiz and stayed in the course",
                         
                         count = length(runcompilethreetoseven$learner_id[is.na(runcompilethreetoseven$quiz_question) == TRUE & is.na(runcompilethreetoseven$left_at) == TRUE]))
 
