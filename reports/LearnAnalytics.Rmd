@@ -3,10 +3,8 @@ title: "Learning Analytics"
 subtitle: "Exploratory Data Analysis on the course CyberSecurity from FutureLearn"
 author: "Thamizhiniyan Pugazhenthi - 200941620"
 date: "28/11/2021"
-output:
-  pdf_document: default
-  html_document:
-    df_print: paged
+output: pdf_document
+font_size: 12pt
 ---
 
 ```{r setup, include=FALSE}
@@ -21,10 +19,10 @@ load.project()
 ```
 
 ## INTRODUCTION
-We generate data on practically every aspect of our lives, which can be harnessed and analysed to reveal powerful insights about our behavior, preferences, and future actions, and the amount, velocity, and diversity of data we generate is fast increasing. Students in higher education leave a digital footprint during their studies that tells us about their learning and experiences at university. Universities can use this information to better understand how students learn and improve the student experience. This is referred to as "Learning Analytics."
+We generate data on practically every aspect of our lives, which can be harnessed and analysed to reveal powerful insights about our behavior, preferences, and future actions, and the amount, velocity, and diversity of data we generate is fast increasing. Students in higher education leave a digital footprint during their studies that tells us about their learning and experiences at university. Universities can use this information to better understand how students learn and improve the student experience. This is referred to as "Learning Analytics"^1^. Learning analytics data could act as a measure of the learner’s commitment to learning, training and employment of staff and teaching intensity.^2^ 
 
 ## DATASET DESCRIPTION
-In Future Learn MOOC data set, we have different sets of data files from seven different runs of cyber security course on different time frames from future learn website. Each set contains enrollments, question response, step activity, team members, video stats, weekly sentiment survey, leaving survey and archetypes. 
+In Future Learn MOOC data set^3^, we have different sets of data files from seven different runs of cyber security course on different time frames from future learn website. Each set contains enrollments, question response, step activity, team members, video stats, weekly sentiment survey, leaving survey and archetypes. 
 
 Enrollment data file contains the data about each person who enrolled in each run of the course. The column of the data file reads the designed id to each enrolled, the time stamp which they enrolled and un enrolled, role of each enrolled, fully participated at, purchased statement at, gender, country, age range, highest education level, employment status, employment area and country from which they are accessing from. Question response data file contains the data about the questions answered by each learner in the quiz they had attended. The columns are learner id, number of the quiz question, type of the question, week number, step number, response they had given, submitted at and whether it is correct or not. 
 
@@ -32,7 +30,7 @@ Step number data file explains the data about the step each learner had visited.
 
 Leaving survey data file contains the data behind leaving. It explains the data about the learner id, time they left at, leaving reason, last completed at, last completed step number and week number. Video stats contains the data which deals with the video associated with the course. It has everything about the videos like the question it associated with, title, duration, total views, downloads, caption views, transcript views, HD view, percentage of the video viewed – five percent, ten, twenty-five, fifty, seventy-five, ninety-five, hundred, console in which it had been viewed – device, desktop, mobile, TV, tablet, unknown data and the continent from which it had been viewed – Europe, Oceania, Asia, North America, South America, Africa and South America. 
 
-Learning Archetypes represent user behavior and general characteristics, and an archetype can be a general guideline about end user’s behavior and are general guidelines on how a user behaves. The types of archetypes are Fixers, Vitalizers, Advancers, Preparers, Explorers, Flourishers, Hobbyists.  Learning Archetypes data file segregates learners with different archetypes. It contains the data which has columns – learner id, responded at and the type of archetype the learner is.
+Learning Archetypes represent user behavior and general characteristics, and an archetype can be a general guideline about end user’s behavior and are general guidelines on how a user behaves^4^. The types of archetypes are Fixers, Vitalizers, Advancers, Preparers, Explorers, Flourishers, Hobbyists^5^.  Learning Archetypes data file segregates learners with different archetypes. It contains the data which has columns – learner id, responded at and the type of archetype the learner is.
 
 From the data set, we will draw different analysis in terms of similarities, differences, positives, negatives, and the improvements they can make along with the recommendations we can tell the future learn team to enhance the user experience.
 
@@ -391,6 +389,22 @@ leavingreasongroupbyemployment %>%
 
 ```
 
+\newpage
+
+\vspace{25pt}
+
+\vspace{25pt}
+
+Next, we will correlate leaving reason with gender, highest education level and employment status. The 'Figure 15', 'Figure 16' and 'Figure 17' plots deals with comparison of gender, highest education level and employment status respectively. 
+
+Let’s consider one plot at a time. Gender comparison shows that the female left for the reason 'I do not have enough time' more than any other reason. But the reason 'Other' is more for male learners. They had different sub reasons for 
+choosing 'Other'. The team should investigate this and can give a crisp version of full course according to their timetable. This will engage many female learners to actively enrol in their course with their preferred span.
+
+The comparison between learners with their highest education level shows that the students at their university degrees did not have enough time to complete the course. It is acceptable since they already have their own curriculum to complete, and they are not considering this course as an extra knowledge gain. Like for female learners, it would be good if the team design a crisper version of course to fit within the timetable of learners who do not have enough time to complete the course. In addition to that, we can see around five people left the course with the masters education level with the reason that the course will not help them to reach their goals. It means that the course does not have a mass appeal to all possible learners. As mentioned earlier, the team should increase the difficulty of the course to avoid these kinds of comments from learners.
+
+Moreover, the comparison between learners from different employment status shows that the people who are working full time do not have enough time to complete the course. For all these problems, the short and crisper version of course is the only solution. The team should really focus on the length of the course since it is the major concern among different sets of learners. The team should know that most of the learners will enrol in this course if they need any additional skill, if they want any promotion in their current workplace, if they want to spend their leisure time effectively by gaining some knowledge, if they need to crack any interview and so on. This will not be the primary focus in their daily routine. So, it would be ideal if the team concentrates on the duration of the course and include some advanced topics to cover users who already have basic knowledge about the topics.
+
+
 ```{r, echo = FALSE, fig.cap="Comparing number of learners against number of weeks they stayed in the course"}
 
 differenceintime %>%
@@ -400,3 +414,58 @@ differenceintime %>%
   geom_text(stat='count', aes(label=..count..), vjust=-0.3) + scale_x_continuous(expand = c(0,0)) + theme_minimal()
 
 ```
+
+\newpage
+
+\vspace{25pt}
+
+\vspace{25pt}
+
+In this final part of analysis, we will compare the learners who left the course with the number of weeks they stayed in the course. We can achieve the result with the difference of the time stamp they left at, and the time stamp they enrolled at. With the 'Figure 18' plot, we can see that the number of people left at the first week is higher than the rest of the plot. It suggests that the learners who enrolled the course and left the course within a week when they see the length of the course and thinks that they could not complete the course or fit in the course within their timetable. This might be the reason of hike in the first week of the course. The course is designed to complete within three weeks but if we look at the plot, we can see that majority of the learners who left the course tried to finish the course by looking at the number who left the course after three weeks. They stayed in the course with a hope to complete the course. Since it was not possible for them, they left the course after a try.
+
+
+## RECOMMENDATIONS
+
+From the exploratory data analysis, we have performed on the cyber security data set from future learn, we can say that the course performs moderate. It does not perform up to the expectations. We gave several recommendations throughout the analysis. Let's summarise all the recommendations here for team at future learn to understand effectively. 
+
+The recommendations are 
+
+  1. Since number of 'Unknown' is high during enrolment process, it is very difficult to analyse the data. The team        should set the personal details field as mandatory which will in turn easy to understand the user background and       tweak the course and set the advertisements according to the requirements. This will cut the cost of the               organisation on promotions and publicity.
+  
+  2. The number of wrong responses in quiz question is little lower than the number of correct responses which is a         good sign but not very good sign. To resolve this, the team should focus on the course content and design the          course in such a way that the interaction with learners should be high. This will reduce the number of wrong           responses in general.
+  
+  3. Majority of the learners enrolled in the course without any active participation in the quizzes. The knowledge         would improve only if they attempted the quiz in each step of the course. The quiz should become mandatory to test      their knowledge in that topic and should set a pass mark to complete the course. Without completion of that            course, they should not allow to navigate the next step of the course.
+  
+  4. Majority of the learners left the course because they do not have enough time to complete the course. The team         should design either the crisper version of the course or the course should be fast tracked one to fit in the          learner's timetable. We should give options to the learners from which they can choose the duration of the course.      It will make way for the people who have lesser time in their daily routine to enroll in the course.
+  
+  5. The next highest reason for learners to leave the course is the difficulty. Many learners who studied till             university degree consider this course as basic and easy. Their expectations are very high, but the course did         not fulfill that. The team should either consider increasing the difficulty of the course in general or consider       designing a course for the people who expect an advanced level of topics for the same course. It should be             designed for the learner to choose from. Ideally, the course should be very flexible as the learner can choose the      duration of the course they need and the difficulty of the course they want. This will fulfill all sets of             learners from all over the world.
+
+  
+  
+
+## CONCLUSION
+
+From the above analysis, we drew different analysis in terms of similarities, differences, positives, negatives, and the improvements they can make along with the recommendations we can tell the future learn team to enhance the user experience. With the recommendations, the team can improve the future analysis with the user background, improve the course content with necessary tweaks in terms of interaction, make the quizzes mandatory and can design the course as flexible as possible. This will bring them more new learners from all over the world with correct promotion strategies and most importantly, the people who enrolled in the course will be very happy and satisfied with the way the course has been designed. The word of mouth will be good with more positive reviews which will in turn increase the mass appeal of the course in general.
+  
+  
+\newpage
+
+## REFERENCES
+
+  1. https://www.policyconnect.org.uk/research/report-bricks-clicks-potential-data-and-analytics-higher-education
+    
+  2. BIS Green Paper (6 November 2015), ‘Higher education: teaching excellence, social mobility and student choice’,        pg.27-28.
+  
+  3. https://www.futurelearn.com/
+  
+  4. https://disprz.com/understanding-learner-personas/
+  
+  5. https://ugc.futurelearn.com/uploads/files/2f/ce/2fce94dd-54e6-4614-972d-ce9c3a6d7d91/Learner-Archetypes.pdf
+
+
+  
+
+
+
+
+
