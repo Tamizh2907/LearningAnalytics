@@ -1,1 +1,1 @@
-Here you can store any output reports, such as HTML or LaTeX versions of tables, that you produce. Sweave or brew documents should also go in the `reports` directory.
+Here you can see output reports of rmarkdown and critical reflection report, that I produce. You have to open the 'LearnAnalytics.Rmd' file in RStudio and 'Knit' button in the toolbar of RStudio will fire up whole project and produce the report in pdf version in the same directory with the help of Project Template.

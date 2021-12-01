@@ -1,6 +1,6 @@
 ---
 title: "Learning Analytics"
-subtitle: "Exploratory Data Analysis on the course CyberSecurity from FutureLearn"
+subtitle: "Exploratory Data Analysis on the cyber security course from FutureLearn"
 author: "Thamizhiniyan Pugazhenthi - 200941620"
 date: "28/11/2021"
 output: pdf_document
@@ -89,7 +89,7 @@ ggplot(enrolment, aes(age_range)) + geom_bar(stat="count") +
 \vspace{25pt}
 
 
-From the 'Figure 2' plot regarding the age range, we cannot see any discrete differences in the block of age range across ages. Leave "Unknown" group aside. If they set the personal details entry as mandatory, we can fetch even more clear picture about the age range. They will create even more courses or tweak cyber security course according to the learners who represent majority of the age range.
+From the 'Figure 2' plot regarding the age range, we cannot see any discrete differences in the block of age range across ages. Leave "Unknown" group aside. If they set the personal details entry as mandatory, we can fetch even more clear picture about the age range. They should create even more courses or tweak cyber security course according to the learners who represent majority of the age range.
 
 
 \newpage
@@ -284,7 +284,7 @@ leavingruncompile %>%
 The plot 'Figure 11' explains about the number of learners left the course in each run. Since we do not have any data about the people left from first run to third run. We will consider the data only from fourth run to seventh run. The number of people left in fifth run of the course is higher than other runs even though the enrolled are comparatively lesser than the fourth run. The difference between people left in fourth and fifth run is more than 100. We can confirm that the fifth run had not performed well and produced good results compared to other runs.
 
 
-```{r, echo = FALSE, fig.cap="Comparing number of people left the course with their reson for leaving"}
+```{r, echo = FALSE, fig.cap="Comparing number of people left the course with their reason for leaving"}
 
 runcompilethreetoseven %>%
   
