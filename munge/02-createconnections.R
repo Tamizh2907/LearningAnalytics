@@ -1,3 +1,15 @@
+########################################################################################################
+#                                     SCRIPT DESCRIPTION                                               #
+########################################################################################################
+#                                                                                                      #
+#               This script contains the code contains the code of two dimensions.                     #
+#    One is to analyse the overall data of seven runs by combine them and                              #
+#                         another is to compare data of each run.                                      #
+########################################################################################################
+
+
+
+
 #Enrollment connection
 
 enrolment = rbind(cybersecurity1enrolments, cybersecurity2enrolments, cybersecurity3enrolments, cybersecurity4enrolments,
@@ -29,15 +41,18 @@ leavingsurvey = leavingsurvey[order(leavingsurvey$learner_id),]
 
 questionresponse = questionresponse[order(questionresponse$learner_id),]
 
+
 #clean leaving survey data
 
 leavingsurvey$leaving_reason = iconv(leavingsurvey$leaving_reason, "latin1", "ASCII", sub="")
+
 
 #drop NA
 
 questionresponse = questionresponse[!(questionresponse$learner_id == ""),]
 
-#run compile across enrollment, question response, leaving survey
+
+#Compile different runs across enrollment, question response, leaving survey
 
 question3unique = cybersecurity3questionresponse %>% group_by(learner_id) %>% filter(row_number() == 1)
   
@@ -94,12 +109,13 @@ finalmergerun7 = unique(merge(merge1run7, leaving7unique, by.x = "learner_id", b
 finalmergerun7 = finalmergerun7[order(finalmergerun7$enrolled_at), ]
 
 
-
 runcompilethreetoseven = rbind(finalmergerun3, finalmergerun4, finalmergerun5, finalmergerun6, finalmergerun7)
 
 runcompilethreetoseven = runcompilethreetoseven[order(runcompilethreetoseven$learner_id),]
 
 runcompilethreetoseven$leaving_reason = iconv(runcompilethreetoseven$leaving_reason, "latin1", "ASCII", sub="")
+
+
 
 #to find count of learner_id and repetitions
 
@@ -268,6 +284,8 @@ finalmergeuniquecompile = data.frame(rbind(enrolledwithoutboth, enrolledwithoutl
 
 
 
+#leaving numbers with step number
+
 leavingsteptop10 = data.frame(runcompilethreetoseven %>% 
   
   filter(is.na(last_completed_step_number) == FALSE) %>%
@@ -275,6 +293,7 @@ leavingsteptop10 = data.frame(runcompilethreetoseven %>%
   group_by(last_completed_step) %>% tally())
 
 
+#leaving reason by highest education level, employment, gender
 
 leavingreasongroupbyeducation = data.frame(runcompilethreetoseven %>% 
   
@@ -297,10 +316,14 @@ leavingreasongroupbygender = data.frame(runcompilethreetoseven %>%
   group_by(leaving_reason, gender) %>% tally())
 
 
+#remove NA from the data frame
+
 runcompilethreetosevenwithoutna = data.frame(runcompilethreetoseven %>%
                                
   filter(is.na(leaving_reason) == FALSE))
 
+
+#find time difference between the time a learner left at and enrolled at in terms of weeks
 
 differenceintime = data.frame(ceiling(difftime(runcompilethreetosevenwithoutna$left_at, runcompilethreetosevenwithoutna$enrolled_at, units = "weeks")))
 
