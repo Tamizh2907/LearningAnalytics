@@ -1,0 +1,137 @@
+commit 3a411bfb6d2a3c4f96f1164bfc7cc342df513723
+Author: Thamizhiniyan P <thamizhiniyan2907@gmail.com>
+Date:   Thu Dec 2 21:13:47 2021 +0000
+
+    EDA project Completed
+
+commit da4d8ac336f4a4218feabdbfe32214fa16c28673
+Author: Thamizhiniyan P <thamizhiniyan2907@gmail.com>
+Date:   Wed Dec 1 05:45:31 2021 +0000
+
+    Added log file
+
+commit 503e664b5386d2c7b37ea523874624d1b8e281d4
+Author: Thamizhiniyan P <thamizhiniyan2907@gmail.com>
+Date:   Wed Dec 1 05:42:11 2021 +0000
+
+    Exploratory Data Analysis completed
+
+commit 2f9321b93791d319dfebe33a647fdcb8d44192bf
+Author: Thamizhiniyan P <thamizhiniyan2907@gmail.com>
+Date:   Tue Nov 30 16:18:20 2021 +0000
+
+    Added critical reflection document
+
+commit 1866f999521464c6432c9ad7c0d794b160a15784
+Author: Thamizhiniyan P <thamizhiniyan2907@gmail.com>
+Date:   Tue Nov 30 11:53:48 2021 +0000
+
+    Deleted R markdown HTML file
+
+commit 155a69f99015c8d39b99d0871f4990692fa40537
+Author: Thamizhiniyan P <thamizhiniyan2907@gmail.com>
+Date:   Mon Nov 29 16:54:45 2021 +0000
+
+    R markdown report generated
+
+commit 38da7b7c46894366d01d0a554f234be54f1b06ac
+Author: Thamizhiniyan P <thamizhiniyan2907@gmail.com>
+Date:   Mon Nov 29 04:08:45 2021 +0000
+
+    R MarkDown partial report
+
+commit 03a745870b34329bd44928eb66966cf5d92b7c5a
+Author: Thamizhiniyan P <thamizhiniyan2907@gmail.com>
+Date:   Sun Nov 28 00:34:53 2021 +0000
+
+    Deep Analysis Day 2
+
+commit f09f9c90bcb92535a4d77b0e61658efcd1463f34
+Author: Thamizhiniyan P <thamizhiniyan2907@gmail.com>
+Date:   Thu Nov 25 01:01:13 2021 +0000
+
+    Deep Analysis - Day one
+
+commit 0fba3a7c4cb49a6228a79c35f528f315be173014
+Author: Thamizhiniyan P <thamizhiniyan2907@gmail.com>
+Date:   Mon Nov 22 16:50:11 2021 +0000
+
+    Compiled R Markdown HTML
+
+commit 383372366083466549b39c5475ab8121adb30b9f
+Author: Thamizhiniyan P <thamizhiniyan2907@gmail.com>
+Date:   Sat Nov 20 02:23:14 2021 +0000
+
+    Added readme file
+
+commit 747647b3ed51931bb0cd3623f92bdf0794b46c32
+Author: Thamizhiniyan P <thamizhiniyan2907@gmail.com>
+Date:   Wed Nov 17 20:44:02 2021 +0000
+
+    Completed R markdown with ProjectTemplate
+
+commit 3fa125dab891ff714a6d259971b4d10ba0fade4f
+Author: Thamizhiniyan P <thamizhiniyan2907@gmail.com>
+Date:   Tue Nov 16 16:41:08 2021 +0000
+
+    Created R markdown layout
+
+commit 823aa563869c75f50aac9e32c9fa83a94ac6c524
+Author: Thamizhiniyan P <thamizhiniyan2907@gmail.com>
+Date:   Mon Nov 15 01:50:44 2021 +0000
+
+    Analysis completed till leaving survey
+
+commit 8d300ea7c29aa81db918a0e5546ac9367ea81719
+Author: Thamizhiniyan P <thamizhiniyan2907@gmail.com>
+Date:   Sun Nov 14 01:41:23 2021 +0000
+
+    Analysis completed till weekly survey
+
+commit fb7a5198a142cd10c4c543717452d21229b5bd0d
+Author: Thamizhiniyan P <thamizhiniyan2907@gmail.com>
+Date:   Wed Nov 17 20:35:08 2021 +0000
+
+    R markdown completion with analysis
+
+commit ff83daaf0857603b3b36c962a751df6c26d21c29
+Author: Thamizhiniyan P <thamizhiniyan2907@gmail.com>
+Date:   Sat Nov 13 03:59:10 2021 +0000
+
+    Completed one round of analysis
+
+commit ba00e7405534a6204362375efd20e2574f2a3596
+Author: Thamizhiniyan P <thamizhiniyan2907@gmail.com>
+Date:   Wed Nov 10 01:25:13 2021 +0000
+
+    Data Analysis day one
+
+commit cff128f1437d61acbfbeb82820f1da7903a03565
+Author: Thamizhiniyan P <thamizhiniyan2907@gmail.com>
+Date:   Tue Nov 9 18:18:45 2021 +0000
+
+    Merge dataframes
+
+commit fe87be6b9dd8f047085a2a756ce3044a10403bfa
+Author: Thamizhiniyan P <thamizhiniyan2907@gmail.com>
+Date:   Tue Nov 9 03:25:18 2021 +0000
+
+    Create connection between datasets
+
+commit 34b62e78386e3d724e9a56cda74cdcedbbf93784
+Author: Thamizhiniyan P <thamizhiniyan2907@gmail.com>
+Date:   Mon Nov 8 03:11:24 2021 +0000
+
+    Convert csv files to dataframes
+
+commit b74f73390caedf1caf9b69e93cd2e085a488039e
+Author: Thamizhiniyan P <thamizhiniyan2907@gmail.com>
+Date:   Sun Nov 7 20:57:36 2021 +0000
+
+    Added data files to work
+
+commit d0b021165c86a3bdb25ae8882a90656343fce2cf
+Author: Thamizhiniyan P <thamizhiniyan2907@gmail.com>
+Date:   Sun Nov 7 20:51:37 2021 +0000
+
+    Created new project "LearningAnalytics"
